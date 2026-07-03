@@ -1,0 +1,118 @@
+aid: glofox
+name: Glofox
+review:
+  question: Does Glofox expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Glofox's own documented API surface is
+    request/response REST over HTTPS (the ABC Glofox API Developer Portal,
+    base https://gf-api.aws.glofox.com/prod/2.0), plus an outbound CDC
+    (change data capture) webhook mechanism that POSTs signed JSON events
+    (MEMBER_CREATED, MEMBER_UPDATED, and access/barcode events) to a
+    partner-configured HTTP endpoint. That is server-to-endpoint HTTP, not a
+    WebSocket or SSE transport. The full event/payload schemas live behind
+    Glofox's gated, JavaScript-rendered Swagger reference (access requires
+    approved x-api-key / x-glofox-api-token credentials), so an AsyncAPI
+    document was not fabricated from partial information.
+findings:
+  summary: |
+    Glofox does not publish a documented public WebSocket API. Glofox is
+    boutique gym/fitness studio management software, acquired by ABC Fitness
+    Solutions in August 2022 and now operated as the ABC Glofox business
+    unit. Glofox publishes a real partner/developer REST API - the "ABC
+    Glofox API Developer Portal" at https://apidocs-plat.aws.glofox.com/ -
+    covering members, memberships, plans, credits, classes/events, bookings,
+    purchases/payments, branches, and leads, versioned at /2.0 on
+    https://gf-api.aws.glofox.com/prod. Access is gated: integrators must
+    email a request-access template (business/studio name, use case, branch
+    ID, expected volume, environments) to apiactivation@abcfitness.com or
+    glofox.APISupport@abcfitness.com and are issued x-api-key and
+    x-glofox-api-token credentials, scoped per request by an
+    x-glofox-branch-id header. Glofox also documents outbound CDC webhooks
+    (Member Webhook, Access Webhook) delivered as signed HTTP POST callbacks -
+    an async/event-driven surface, but still HTTP, not WebSocket. No
+    real-time, bidirectional ws:// or wss:// endpoint is documented anywhere
+    in the portal.
+  openSource: |
+    Glofox/ABC Glofox is closed-source, proprietary SaaS. A public GitHub
+    organization exists (github.com/glofoxinc) for peripheral tooling such as
+    a website integration builder, but the core platform and API are not
+    open source.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://gf-api.aws.glofox.com/prod/2.0
+      documented: true
+      note: Partner/developer API covering members, memberships, plans,
+        credits, events, bookings, purchases, branches, and leads. Sandbox
+        and staging environments are also issued on request.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: CDC webhooks (Member Webhook, Access Webhook) - at-least-once,
+        HMAC-SHA256-signed HTTP POST callbacks with a 5-second delivery
+        timeout and up to three attempts.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the ABC Glofox
+        API Developer Portal as of the review date.
+  endpointsConfirmedRest:
+    - GET https://gf-api.aws.glofox.com/prod/2.0/members
+  endpointsModeled: true
+  endpointsModeledNote: |
+    Beyond the documented credential-verification call (GET /2.0/members),
+    Glofox's full CRUD endpoint surface for memberships, plans, credits,
+    events, bookings, purchases, branches, and leads is described only in
+    prose on the public portal pages (Common Concepts, and the Lead Sale,
+    Purchase Product, Payment Collector, Login, Avatar, and Book integration
+    flows). The authoritative endpoint-by-endpoint reference lives in a
+    JavaScript-rendered Swagger UI at /swagger/ that this review could not
+    render without approved API credentials. The API groupings in apis.yml
+    (Members, Memberships/Plans/Credits, Classes & Events, Bookings,
+    Payments & Purchases, Leads, Branches) reflect Glofox's own documented
+    resource model, not a scraped or fabricated endpoint list.
+sources:
+  - url: https://apidocs-plat.aws.glofox.com/
+    type: Documentation
+    note: ABC Glofox API Developer Portal home and navigation.
+  - url: https://apidocs-plat.aws.glofox.com/authentication/
+    type: Documentation
+    note: Auth headers (x-api-key, x-glofox-api-token, x-glofox-branch-id),
+      production base URL, and rate limits.
+  - url: https://apidocs-plat.aws.glofox.com/request-access/
+    type: Documentation
+    note: Access request template and process (email-based, credentialed).
+  - url: https://apidocs-plat.aws.glofox.com/common-concepts/
+    type: Documentation
+    note: Core resource model - Location/Branch, Member, Plan, Membership,
+      Credits, Events, Bookings, Purchase.
+  - url: https://apidocs-plat.aws.glofox.com/cdc-webhooks/
+    type: Documentation
+    note: CDC webhook events, signing, timeout, and retry policy.
+  - url: https://apidocs-plat.aws.glofox.com/api-errors/
+    type: Documentation
+    note: HTTP status codes and {message, message_code} error response shape.
+  - url: https://apidocs-plat.aws.glofox.com/swagger/
+    type: APIReference
+    note: JavaScript-rendered Swagger UI; full endpoint detail requires
+      approved credentials and a browser, not fetchable as static content.
+  - url: https://www.glofox.com/blog/abc-fitness-solutions-completes-glofox-acquisition/
+    type: Documentation
+    note: ABC Fitness Solutions completed its acquisition of Glofox, August 2022.
+  - url: https://github.com/glofoxinc
+    type: SourceCode
+    note: Public GitHub organization for peripheral tooling (not the core platform).
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Glofox's own public API is
+    request/response REST plus outbound signed webhook callbacks. No
+    AsyncAPI document was created because the full webhook event/payload
+    catalog is gated behind credentialed access to a JavaScript-rendered
+    Swagger reference, and this review does not fabricate schemas it could
+    not verify.

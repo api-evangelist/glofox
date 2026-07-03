@@ -1,0 +1,108 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Glofox
+providerId: glofox
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Fitness
+- Gym Management
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Glofox/ABC Glofox spend. Glofox is sold as a per-studio SaaS
+  subscription (not usage-metered API billing) - cost scales with the number
+  of locations, staff seats, and member volume, plus optional add-ons such as
+  a branded mobile app, marketing automation, and payment processing fees on
+  member transactions. API access (x-api-key / x-glofox-api-token) is bundled
+  into the software subscription for existing customers/partners rather than
+  billed separately per request, so the API itself has no distinct meter -
+  the underlying software plan and any payment-processing take-rate are the
+  cost drivers to track.
+notes: >-
+  Exact subscription tiers and payment-processing rates are not published by
+  Glofox and require a sales quote; treat the figures in plans/ as
+  third-party estimates pending reconciliation with Glofox/ABC Fitness
+  directly.
+sources:
+- https://www.glofox.com/pricing/
+- https://www.glofox.com/blog/protect-your-revenue-with-new-fees/
+- https://apidocs-plat.aws.glofox.com/flows/payment-collector/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Glofox (ABC Fitness Solutions)
+serviceCategory: Vertical SaaS - Fitness & Studio Management
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Glofox
+  ServiceCategory: Vertical SaaS - Fitness & Studio Management
+  ProviderName: ABC Fitness Solutions
+  PublisherName: Glofox
+  InvoiceIssuerName: ABC Fitness Solutions
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: location_subscription
+  description: Monthly per-location software subscription fee.
+  unit: locations
+  aggregation: sum
+  dimensions:
+  - account
+  - location
+- name: staff_seats
+  description: Additional staff-seat charges above a plan's included allotment.
+  unit: seats
+  aggregation: sum
+  dimensions:
+  - account
+  - location
+- name: payment_processing
+  description: Transaction fees on member payments processed via the Payment
+    Collector flow.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - account
+  - location
+- name: add_ons
+  description: Optional add-on charges (branded mobile app, marketing
+    automation, premium integrations/API access).
+  unit: subscriptions
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track per-location subscription tier, staff-seat count, and
+    payment-processing volume monthly; Glofox does not expose usage-based API
+    billing to reconcile separately.
+- name: Allocation
+  description: Map each Glofox location/branch (x-glofox-branch-id) to an
+    internal cost center for multi-location operators and franchises.
+- name: Optimization
+  description: Right-size staff seats and add-ons per location; consolidate
+    payment processing through Glofox's own Payment Collector to avoid
+    third-party gateway fees stacking on top of the subscription.
+- name: Accountability
+  description: Assign an owner per location/franchise contract and review
+    subscription tier and add-on spend at renewal against actual member and
+    booking volume.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

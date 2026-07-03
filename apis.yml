@@ -1,0 +1,190 @@
+aid: glofox
+url: https://raw.githubusercontent.com/api-evangelist/glofox/refs/heads/main/apis.yml
+name: Glofox
+kind: company
+description: Glofox is boutique gym and fitness studio management software -
+  member management, class/appointment scheduling, bookings, memberships,
+  credits, payments, and lead conversion for studios, gyms, and fitness
+  franchises. Glofox was acquired by ABC Fitness Solutions in August 2022 and
+  now operates as the ABC Glofox business unit within ABC's fitness technology
+  platform. Glofox publishes a partner/developer REST API (the "ABC Glofox API
+  Developer Portal") covering members, memberships, plans, credits, classes,
+  bookings, purchases, branches, and leads, plus CDC (change data capture)
+  webhooks for member and access-control events. Access is gated - integrators
+  request x-api-key and x-glofox-api-token credentials by email before they can
+  call the API.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Fitness
+- Gym Management
+- Boutique Fitness
+- Class Scheduling
+- Bookings
+- Memberships
+- Leads
+- ABC Fitness
+- CDC Webhooks
+created: '2026-07-03'
+modified: '2026-07-03'
+specificationVersion: '0.19'
+apis:
+- aid: glofox:glofox-members-api
+  name: Glofox Members API
+  tags:
+  - Members
+  - Leads
+  - CRM
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs-plat.aws.glofox.com/authentication/
+  baseURL: https://gf-api.aws.glofox.com/prod/2.0
+  properties:
+  - url: https://apidocs-plat.aws.glofox.com/common-concepts/
+    type: Documentation
+  - url: https://apidocs-plat.aws.glofox.com/swagger/
+    type: APIReference
+  description: Access, create, and edit member records - the central pivot of
+    the Glofox data model, spanning leads, active members, and ex-members
+    (soft-deleted via an active flag rather than hard-deleted). The documented
+    credential-verification call is a GET against /2.0/members.
+- aid: glofox:glofox-memberships-plans-credits-api
+  name: Glofox Memberships, Plans & Credits API
+  tags:
+  - Memberships
+  - Plans
+  - Credits
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs-plat.aws.glofox.com/common-concepts/
+  baseURL: https://gf-api.aws.glofox.com/prod/2.0
+  properties:
+  - url: https://apidocs-plat.aws.glofox.com/common-concepts/
+    type: Documentation
+  - url: https://apidocs-plat.aws.glofox.com/swagger/
+    type: APIReference
+  description: Manage Plans (the terms, duration, and pricing of a service
+    offering), a member's Membership against a given Plan, and Credits - the
+    units of value a member redeems to book Classes, Appointments, or
+    Facilities.
+- aid: glofox:glofox-classes-events-api
+  name: Glofox Classes & Events API
+  tags:
+  - Classes
+  - Events
+  - Scheduling
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs-plat.aws.glofox.com/common-concepts/
+  baseURL: https://gf-api.aws.glofox.com/prod/2.0
+  properties:
+  - url: https://apidocs-plat.aws.glofox.com/common-concepts/
+    type: Documentation
+  - url: https://apidocs-plat.aws.glofox.com/swagger/
+    type: APIReference
+  description: Scheduled Events - classes, appointments, and facility slots -
+    with capacity and attendance tracking that members book against within a
+    given Location/Branch.
+- aid: glofox:glofox-bookings-api
+  name: Glofox Bookings API
+  tags:
+  - Bookings
+  - Classes
+  - Appointments
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs-plat.aws.glofox.com/flows/book/
+  baseURL: https://gf-api.aws.glofox.com/prod/2.0
+  properties:
+  - url: https://apidocs-plat.aws.glofox.com/flows/book/
+    type: Documentation
+  - url: https://apidocs-plat.aws.glofox.com/swagger/
+    type: APIReference
+  description: Create and manage a member's booking - the record of intent to
+    attend a scheduled Event - governed by available Credits and Event
+    capacity. Documented end to end in the portal's "Book" integration flow.
+- aid: glofox:glofox-payments-purchases-api
+  name: Glofox Payments & Purchases API
+  tags:
+  - Payments
+  - Purchases
+  - Products
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs-plat.aws.glofox.com/flows/purchase-product/
+  baseURL: https://gf-api.aws.glofox.com/prod/2.0
+  properties:
+  - url: https://apidocs-plat.aws.glofox.com/flows/purchase-product/
+    type: Documentation
+  - url: https://apidocs-plat.aws.glofox.com/flows/payment-collector/
+    type: Documentation
+  - url: https://apidocs-plat.aws.glofox.com/swagger/
+    type: APIReference
+  description: Purchase products and plans and process payments through the
+    Payment Collector flow - a hosted, domain-authorized iframe kept out of
+    direct API credential exposure - covering transaction handling for
+    memberships, classes, and retail products.
+- aid: glofox:glofox-leads-api
+  name: Glofox Leads API
+  tags:
+  - Leads
+  - Sales
+  - CRM
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs-plat.aws.glofox.com/flows/lead-sale/
+  baseURL: https://gf-api.aws.glofox.com/prod/2.0
+  properties:
+  - url: https://apidocs-plat.aws.glofox.com/flows/lead-sale/
+    type: Documentation
+  - url: https://apidocs-plat.aws.glofox.com/swagger/
+    type: APIReference
+  description: Capture prospective members as leads and convert them into
+    paying members through the "Lead Sale" integration flow documented in the
+    developer portal.
+- aid: glofox:glofox-branches-locations-api
+  name: Glofox Branches (Locations) API
+  tags:
+  - Branches
+  - Locations
+  - Multi-Location
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs-plat.aws.glofox.com/common-concepts/
+  baseURL: https://gf-api.aws.glofox.com/prod/2.0
+  properties:
+  - url: https://apidocs-plat.aws.glofox.com/common-concepts/
+    type: Documentation
+  - url: https://apidocs-plat.aws.glofox.com/authentication/
+    type: Documentation
+  description: Locations/Branches are the physical studios or gyms that
+    contextualize Plans, Events, and Bookings. Every API request is scoped to
+    a branch via the required x-glofox-branch-id header.
+- aid: glofox:glofox-cdc-webhooks
+  name: Glofox CDC Webhooks
+  tags:
+  - Webhooks
+  - CDC
+  - Events
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://apidocs-plat.aws.glofox.com/cdc-webhooks/
+  baseURL: https://gf-api.aws.glofox.com/prod/2.0
+  properties:
+  - url: https://apidocs-plat.aws.glofox.com/cdc-webhooks/
+    type: Documentation
+  description: Outbound change-data-capture webhooks - an HMAC-SHA256-signed
+    Member Webhook (MEMBER_CREATED, MEMBER_UPDATED; deletes are soft via an
+    active flag, no MEMBER_DELETED event) and an Access Webhook that keeps
+    barcode identifiers in sync with access-control hardware. Delivery is
+    at-least-once HTTP POST with a 5-second response timeout and up to three
+    attempts.
+common:
+- type: GitHubOrganization
+  url: https://github.com/glofoxinc
+- type: LinkedIn
+  url: https://www.linkedin.com/company/abcglofox
+- type: Website
+  url: https://www.glofox.com
+- type: Documentation
+  url: https://apidocs-plat.aws.glofox.com/
+- type: Plans
+  url: plans/glofox-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/glofox-rate-limits.yml
+- type: FinOps
+  url: finops/glofox-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

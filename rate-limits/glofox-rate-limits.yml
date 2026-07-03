@@ -1,0 +1,60 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Glofox
+providerId: glofox
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: true
+tags:
+- Fitness
+- Gym Management
+- Rate Limiting
+- Quotas
+description: >-
+  Glofox publishes fixed numeric rate limits for its partner/developer API in
+  the Authentication section of its developer portal. Limits differ between
+  live (production) and sandbox accounts and are enforced with a token-bucket
+  style burst allowance on top of a sustained requests-per-second cap.
+notes: >-
+  Payment Collector iframe usage additionally requires separate domain
+  authorization from Glofox before it will render outside pre-approved
+  origins.
+sources:
+- https://apidocs-plat.aws.glofox.com/authentication/
+- https://apidocs-plat.aws.glofox.com/api-errors/
+responseCodes:
+  throttled: 429
+limits:
+- name: Live Account Requests
+  scope: account
+  metric: requests
+  limit: 10 requests/second, burst allowance of 1000 requests
+  notes: Applies to production (live) API credentials.
+- name: Sandbox Account Requests
+  scope: account
+  metric: requests
+  limit: 3 requests/second, burst allowance of 300 requests
+  notes: Applies to sandbox/development API credentials.
+- name: Payment Collector Domain Authorization
+  scope: integration
+  metric: domains
+  limit: pre-approved only
+  notes: The hosted Payment Collector iframe must have its origin domain
+    authorized by Glofox before it will load.
+policies:
+- name: Throttle Response
+  description: Requests exceeding the sustained or burst limit receive an
+    HTTP 429 response, documented in the portal's error-handling reference as
+    "Throttle Down."
+- name: Legacy Success-False Responses
+  description: Some older endpoints return HTTP 200 with a success:false body
+    field instead of a 4xx/5xx status; the portal recommends normalizing
+    these to 400 in client middleware.
+- name: Backend-Only Credentials
+  description: x-api-key and x-glofox-api-token must be used only in backend
+    integrations and proxied through a secure server - never called directly
+    from a browser or shipped in client-side code.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

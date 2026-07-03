@@ -1,0 +1,109 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Glofox
+providerId: glofox
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Fitness
+- Gym Management
+- Boutique Fitness
+- Plans
+description: >-
+  Glofox sells subscription plans to gyms and fitness studios (the software
+  product), not metered access to the developer API itself. Pricing is not
+  published in full - Glofox requires a custom quote based on location count,
+  member volume, and staff size - but third-party reviews and comparison
+  sites consistently report tiered plans starting around $100-$200/month for
+  a single boutique studio, rising past $400-$600+/month with additional
+  locations, staff seats, and add-ons (branded mobile app, marketing
+  automation, payment processing). API access (x-api-key /
+  x-glofox-api-token credentials) is issued to an existing Glofox/ABC Glofox
+  customer or approved partner at no separately published fee; it is bundled
+  with the studio's software subscription rather than billed per request.
+notes: >-
+  These figures are drawn from third-party pricing roundups, not Glofox's own
+  pricing page, since Glofox gates its rates behind a sales quote. Verify
+  current tiers directly with Glofox/ABC Fitness sales before relying on
+  specific numbers.
+sources:
+- https://www.glofox.com/plans/
+- https://www.glofox.com/pricing/
+- https://www.exercise.com/grow/how-much-does-glofox-cost/
+- https://apidocs-plat.aws.glofox.com/request-access/
+plans:
+- id: glofox-studio-starter
+  name: Studio / Starter
+  type: paid
+  description: >-
+    Entry-tier subscription for a single boutique studio or gym location,
+    covering core member management, scheduling, and bookings. Exact price
+    requires a sales quote; third-party sources place it roughly in the
+    $100-$200/month range.
+  entries:
+  - label: Monthly Subscription
+    name: studio_monthly
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: approx. $100-$200/month (custom quote required)
+    userMultiplied: false
+  elements:
+  - name: Member Management
+  - name: Class & Appointment Scheduling
+  - name: Bookings
+  - name: Basic Reporting
+- id: glofox-growth-multi-location
+  name: Growth / Multi-Location
+  type: paid
+  description: >-
+    Mid-tier plan for growing studios and small multi-location operators,
+    adding staff seats, marketing/lead tools, and expanded integrations.
+    Third-party sources place this roughly in the $200-$400/month range.
+  entries:
+  - label: Monthly Subscription
+    name: growth_monthly
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: approx. $200-$400/month (custom quote required)
+    userMultiplied: false
+  elements:
+  - name: Multi-Location Support
+  - name: Lead Management
+  - name: Additional Staff Seats
+  - name: Marketing Automation
+- id: glofox-enterprise-franchise
+  name: Enterprise / Franchise
+  type: enterprise
+  description: >-
+    Custom plan for large franchises and chains needing advanced reporting,
+    branded mobile apps, API/partner integrations, and dedicated support.
+    Reported by reviewers as exceeding $600/month with add-ons.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Branded Mobile App
+  - name: API / Partner Access
+  - name: Advanced Reporting
+  - name: Dedicated Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
