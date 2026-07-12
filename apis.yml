@@ -171,6 +171,10 @@ apis:
     at-least-once HTTP POST with a 5-second response timeout and up to three
     attempts.
 common:
+- type: TrustCenter
+  url: security/glofox-trust-center.yml
+- type: DomainSecurity
+  url: security/glofox-domain-security.yml
 - type: GitHubOrganization
   url: https://github.com/glofoxinc
 - type: LinkedIn
@@ -185,6 +189,8 @@ common:
   url: rate-limits/glofox-rate-limits.yml
 - type: FinOps
   url: finops/glofox-finops.yml
+- url: https://www.glofox.com/feed/
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
