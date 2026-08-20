@@ -80,6 +80,10 @@ apis:
   name: Glofox Classes & Events API
   tags:
   - Classes
+  - Event
+  - Scheduling
+  tags_raw:
+  - Classes
   - Events
   - Scheduling
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
@@ -113,6 +117,10 @@ apis:
 - aid: glofox:glofox-payments-purchases-api
   name: Glofox Payments & Purchases API
   tags:
+  - Payments
+  - Purchases
+  - Product
+  tags_raw:
   - Payments
   - Purchases
   - Products
@@ -167,6 +175,10 @@ apis:
 - aid: glofox:glofox-cdc-webhooks
   name: Glofox CDC Webhooks
   tags:
+  - Webhook
+  - CDC
+  - Event
+  tags_raw:
   - Webhooks
   - CDC
   - Events
