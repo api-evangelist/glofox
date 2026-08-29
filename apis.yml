@@ -13,6 +13,17 @@ description: Glofox is boutique gym and fitness studio management software -
   webhooks for member and access-control events. Access is gated - integrators
   request x-api-key and x-glofox-api-token credentials by email before they can
   call the API.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: unknown
