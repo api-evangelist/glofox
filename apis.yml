@@ -42,6 +42,16 @@ tags:
 - Gym Management
 - Boutique Fitness
 - Class Scheduling
+- Booking
+- Membership
+- Leads
+- ABC Fitness
+- CDC Webhooks
+tags_raw:
+- Fitness
+- Gym Management
+- Boutique Fitness
+- Class Scheduling
 - Bookings
 - Memberships
 - Leads
@@ -72,6 +82,10 @@ apis:
 - aid: glofox:glofox-memberships-plans-credits-api
   name: Glofox Memberships, Plans & Credits API
   tags:
+  - Membership
+  - Plans
+  - Credit
+  tags_raw:
   - Memberships
   - Plans
   - Credits
@@ -111,6 +125,10 @@ apis:
 - aid: glofox:glofox-bookings-api
   name: Glofox Bookings API
   tags:
+  - Booking
+  - Classes
+  - Appointments
+  tags_raw:
   - Bookings
   - Classes
   - Appointments
@@ -169,6 +187,10 @@ apis:
 - aid: glofox:glofox-branches-locations-api
   name: Glofox Branches (Locations) API
   tags:
+  - Branches
+  - Location
+  - Multi-Location
+  tags_raw:
   - Branches
   - Locations
   - Multi-Location
