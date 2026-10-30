@@ -1,4 +1,4 @@
-# Glofox (glofox)
+# Glofox
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,106 +64,112 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Glofox is boutique gym and fitness studio management software - member management, class/appointment scheduling, bookings, memberships, credits, payments, and lead conversion for studios, gyms, and fitness franchises. Glofox was acquired by ABC Fitness Solutions in August 2022 (a deal reported at upwards of €200 million) and now operates as the **ABC Glofox** business unit within ABC's broader fitness technology platform, alongside sibling acquisitions like Trainerize and GymSales.
+Glofox is boutique gym and fitness studio management software - member management, class/appointment scheduling, bookings, memberships, credits, payments, and lead conversion for studios, gyms, and fitness franchises. Glofox was acquired by ABC Fitness Solutions in August 2022 and now operates as the ABC Glofox business unit within ABC's fitness technology platform. Glofox publishes a partner/developer REST API (the "ABC Glofox API Developer Portal") covering members, memberships, plans, credits, classes, bookings, purchases, branches, and leads, plus CDC (change data capture) webhooks for member and access-control events. Access is gated - integrators request x-api-key and x-glofox-api-token credentials by email before they can call the API.
 
-Glofox publishes a real partner/developer REST API - the "ABC Glofox API Developer Portal" - covering members, memberships, plans, credits, classes/events, bookings, purchases/payments, branches, and leads, plus outbound CDC (change data capture) webhooks for member and access-control events. **Access is gated**: this is not a self-serve, open API. Integrators email a request-access template (business/studio name, use case, branch ID, expected daily volume, environments needed) to `apiactivation@abcfitness.com`, and are issued `x-api-key` and `x-glofox-api-token` credentials scoped by an `x-glofox-branch-id` header. Because the authoritative endpoint-by-endpoint reference lives behind a JavaScript-rendered Swagger UI that requires those approved credentials, the API groupings documented here reflect Glofox's own published resource model (from its Common Concepts and integration-flow docs), not a fully enumerated, credential-verified endpoint list.
+**Areas:** Fitness · Gym Management · Boutique Fitness · Class Scheduling · Booking · Membership · Leads · ABC Fitness · CDC Webhooks
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/glofox/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/glofox/refs/heads/main/apis.yml)
+## Glofox on APIs.io
 
-## Tags
+Everything profiled for Glofox is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/glofox/](https://apis.io/providers/glofox/)** — or go straight to one of the APIs or properties below.
 
-- Fitness
-- Gym Management
-- Boutique Fitness
-- Class Scheduling
-- Bookings
-- Memberships
-- Leads
-- ABC Fitness
-- CDC Webhooks
+### APIs (8)
 
-## Timestamps
+- [Glofox Members API](https://apis.io/apis/glofox/glofox-members-api/) — Access, create, and edit member records - the central pivot of the Glofox data model, spanning leads, active members, and ex-members (soft-deleted via an…
+- [Glofox Memberships, Plans & Credits API](https://apis.io/apis/glofox/glofox-memberships-plans-credits-api/) — Manage Plans (the terms, duration, and pricing of a service offering), a member's Membership against a given Plan, and Credits - the units of value a member…
+- [Glofox Classes & Events API](https://apis.io/apis/glofox/glofox-classes-events-api/) — Scheduled Events - classes, appointments, and facility slots - with capacity and attendance tracking that members book against within a given Location/Branch.
+- [Glofox Bookings API](https://apis.io/apis/glofox/glofox-bookings-api/) — Create and manage a member's booking - the record of intent to attend a scheduled Event - governed by available Credits and Event capacity. Documented end…
+- [Glofox Payments & Purchases API](https://apis.io/apis/glofox/glofox-payments-purchases-api/) — Purchase products and plans and process payments through the Payment Collector flow - a hosted, domain-authorized iframe kept out of direct API credential…
+- [Glofox Leads API](https://apis.io/apis/glofox/glofox-leads-api/) — Capture prospective members as leads and convert them into paying members through the "Lead Sale" integration flow documented in the developer portal.
+- [Glofox Branches (Locations) API](https://apis.io/apis/glofox/glofox-branches-locations-api/) — Locations/Branches are the physical studios or gyms that contextualize Plans, Events, and Bookings. Every API request is scoped to a branch via the required…
+- [Glofox CDC Webhooks](https://apis.io/apis/glofox/glofox-cdc-webhooks/) — Outbound change-data-capture webhooks - an HMAC-SHA256-signed Member Webhook (MEMBER_CREATED, MEMBER_UPDATED; deletes are soft via an active flag, no…
 
-- **Created:** 2026-07-03
-- **Modified:** 2026-07-03
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Glofox Members API
+#### Security (2)
 
-Access, create, and edit member records - the central pivot of the Glofox data model, spanning leads, active members, and ex-members (soft-deleted via an `active` flag rather than hard-deleted). The documented credential-verification call is a GET against `/2.0/members`.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://apidocs-plat.aws.glofox.com/authentication/](https://apidocs-plat.aws.glofox.com/authentication/)
-- **Base URL:** `https://gf-api.aws.glofox.com/prod/2.0`
+- [Glofox Domain Security](https://apis.io/security/glofox/glofox-domain-security/)
+- [Glofox Trust Center](https://apis.io/security/glofox/glofox-trust-center/)
 
-### Glofox Memberships, Plans & Credits API
+#### Plans and pricing (1)
 
-Manage Plans (terms, duration, pricing), a member's Membership against a given Plan, and Credits - the units of value redeemed to book Classes, Appointments, or Facilities.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://apidocs-plat.aws.glofox.com/common-concepts/](https://apidocs-plat.aws.glofox.com/common-concepts/)
-- **Base URL:** `https://gf-api.aws.glofox.com/prod/2.0`
+- [Glofox Plans Pricing](https://apis.io/plans/glofox/glofox-plans-pricing/)
 
-### Glofox Classes & Events API
+#### Rate limits (1)
 
-Scheduled Events - classes, appointments, and facility slots - with capacity and attendance tracking that members book against within a given Location/Branch.
+Published request limits.
 
-- **Human URL:** [https://apidocs-plat.aws.glofox.com/common-concepts/](https://apidocs-plat.aws.glofox.com/common-concepts/)
-- **Base URL:** `https://gf-api.aws.glofox.com/prod/2.0`
+- [Glofox Rate Limits](https://apis.io/rate-limits/glofox/glofox-rate-limits/)
 
-### Glofox Bookings API
+#### FinOps (1)
 
-Create and manage a member's booking - the record of intent to attend a scheduled Event - governed by available Credits and Event capacity.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://apidocs-plat.aws.glofox.com/flows/book/](https://apidocs-plat.aws.glofox.com/flows/book/)
-- **Base URL:** `https://gf-api.aws.glofox.com/prod/2.0`
+- [Glofox Finops](https://apis.io/finops/glofox/glofox-finops/)
 
-### Glofox Payments & Purchases API
+## Where to find this API
 
-Purchase products and plans and process payments through the Payment Collector flow - a hosted, domain-authorized iframe kept out of direct API credential exposure - covering transaction handling for memberships, classes, and retail products.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- **Human URL:** [https://apidocs-plat.aws.glofox.com/flows/purchase-product/](https://apidocs-plat.aws.glofox.com/flows/purchase-product/)
-- **Base URL:** `https://gf-api.aws.glofox.com/prod/2.0`
-
-### Glofox Leads API
-
-Capture prospective members as leads and convert them into paying members through the "Lead Sale" integration flow documented in the developer portal.
-
-- **Human URL:** [https://apidocs-plat.aws.glofox.com/flows/lead-sale/](https://apidocs-plat.aws.glofox.com/flows/lead-sale/)
-- **Base URL:** `https://gf-api.aws.glofox.com/prod/2.0`
-
-### Glofox Branches (Locations) API
-
-Locations/Branches are the physical studios or gyms that contextualize Plans, Events, and Bookings. Every API request is scoped to a branch via the required `x-glofox-branch-id` header.
-
-- **Human URL:** [https://apidocs-plat.aws.glofox.com/common-concepts/](https://apidocs-plat.aws.glofox.com/common-concepts/)
-- **Base URL:** `https://gf-api.aws.glofox.com/prod/2.0`
-
-### Glofox CDC Webhooks
-
-Outbound change-data-capture webhooks - an HMAC-SHA256-signed Member Webhook (`MEMBER_CREATED`, `MEMBER_UPDATED`; no `MEMBER_DELETED`, deletes are soft via an `active` flag) and an Access Webhook that keeps barcode identifiers in sync with access-control hardware. Delivery is at-least-once HTTP POST with a 5-second response timeout and up to three attempts.
-
-- **Human URL:** [https://apidocs-plat.aws.glofox.com/cdc-webhooks/](https://apidocs-plat.aws.glofox.com/cdc-webhooks/)
-- **Base URL:** `https://gf-api.aws.glofox.com/prod/2.0`
-
-## Access Model
-
-- **Request access:** email a template (studio/business name, contact, use case/data flows, branch ID(s), expected daily volume, environments) to `apiactivation@abcfitness.com` (subject: "API Access Request"), or reach Glofox Integrations at `glofox.APISupport@abcfitness.com`.
-- **Credentials:** `x-api-key` and `x-glofox-api-token`, plus a required `x-glofox-branch-id` header on every call. Separate credential sets exist for development/staging and production.
-- **Security requirement:** credentials are for backend integrations only and must be proxied through a secure server - never exposed in a browser or client-side code.
-- **Rate limits:** live accounts get 10 requests/second with a 1000-request burst; sandbox accounts get 3 requests/second with a 300-request burst.
-- **Errors:** JSON body with `message` and `message_code`; standard HTTP codes (400/401/403/404/429/500), with a documented legacy exception where some older endpoints return HTTP 200 with `success: false`.
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/glofoxinc)
-- [LinkedIn](https://www.linkedin.com/company/abcglofox)
 - [Website](https://www.glofox.com)
 - [Documentation](https://apidocs-plat.aws.glofox.com/)
-- [Plans](plans/glofox-plans-pricing.yml)
-- [Rate Limits](rate-limits/glofox-rate-limits.yml)
-- [Fin Ops](finops/glofox-finops.yml)
+- [Blog](https://www.glofox.com/feed/)
+- [GitHub](https://github.com/glofoxinc)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 12.9** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 9.5 |
+| Access clarity | 15.8 |
+
+**Agent readiness 0.6** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 10.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/glofox/](https://apis.io/providers/glofox/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Glofox: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/glofox/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
